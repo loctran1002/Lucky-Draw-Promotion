@@ -1,10 +1,15 @@
 using LuckyDrawPromotion.Models.Entity;
-using Microsoft.AspNetCore.Identity;
+using LuckyDrawPromotion.Services;
+using LuckyDrawPromotion.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Add my dependencies
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IAwardService, AwardService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PromotionDbContext>(options =>

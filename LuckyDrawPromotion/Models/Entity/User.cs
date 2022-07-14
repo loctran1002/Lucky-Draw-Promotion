@@ -13,6 +13,6 @@ namespace LuckyDrawPromotion.Models.Entity
         public string TypeBusiness { get; set; }
         public bool Block { get; set; }
 
-        public List<Award> Awards { get; set; }
+        public List<Award>? Awards { get; set; }
     }
 }
