@@ -1,4 +1,5 @@
-﻿using LuckyDrawPromotion.Models.Entity;
+﻿using LuckyDrawPromotion.Data.Entity;
+using LuckyDrawPromotion.Models;
 using LuckyDrawPromotion.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,11 +35,43 @@ namespace LuckyDrawPromotion.Controllers
             return await _userService.Get(phone);
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public async Task<bool> Post([FromBody] User user)
+        [HttpGet("Register")]
+        public IActionResult Register()
         {
-            return await _userService.Post(user);
+            return Ok(new RegisterViewModel());
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel registerViewModel)
+        {
+            if (!ModelState.IsValid)
+                return CreatedAtAction("Register", registerViewModel);
+
+            var register = await _userService.RegisterAsync(registerViewModel);
+            if (!register)
+                return BadRequest("Tài khoản đã tồn tại");
+            return Ok("Successful");
+        }
+
+        [HttpGet("Login")]
+        public IActionResult Login()
+        {
+            return Ok(new LoginViewModel());
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+            if (!ModelState.IsValid)
+                return CreatedAtAction("Login", loginViewModel);
+
+            var register = await _userService.LoginAsync(loginViewModel);
+            if (!register)
+            {
+                //loginViewModel.ErrorMessage = ;
+                return BadRequest("Sai tài khoản hoặc mật khẩu. Đăng nhập lại...");
+            }
+            return Ok("Successful");
         }
 
         // PUT api/<UserController>/5

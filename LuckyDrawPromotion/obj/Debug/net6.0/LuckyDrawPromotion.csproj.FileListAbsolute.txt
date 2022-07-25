@@ -120,4 +120,3 @@ D:\Lucky-Draw-Promotion\LuckyDrawPromotion\obj\Debug\net6.0\refint\LuckyDrawProm
 D:\Lucky-Draw-Promotion\LuckyDrawPromotion\obj\Debug\net6.0\LuckyDrawPromotion.pdb
 D:\Lucky-Draw-Promotion\LuckyDrawPromotion\obj\Debug\net6.0\LuckyDrawPromotion.genruntimeconfig.cache
 D:\Lucky-Draw-Promotion\LuckyDrawPromotion\obj\Debug\net6.0\ref\LuckyDrawPromotion.dll
-D:\Lucky-Draw-Promotion\LuckyDrawPromotion\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll

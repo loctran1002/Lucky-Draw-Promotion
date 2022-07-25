@@ -1,4 +1,4 @@
-using LuckyDrawPromotion.Models.Entity;
+using LuckyDrawPromotion.Data.Entity;
 using LuckyDrawPromotion.Services;
 using LuckyDrawPromotion.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add my dependencies
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IAwardService, AwardService>();
+builder.Services.AddTransient<IGiftService, GiftService>();
+builder.Services.AddTransient<ISettingService, SettingService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddTransient<ICampaignService, CampaignService>();
+builder.Services.AddTransient<IInsCodeService, InsCodeService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PromotionDbContext>(options =>

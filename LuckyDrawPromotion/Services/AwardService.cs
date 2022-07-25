@@ -1,4 +1,4 @@
-﻿using LuckyDrawPromotion.Models.Entity;
+﻿using LuckyDrawPromotion.Data.Entity;
 using LuckyDrawPromotion.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ namespace LuckyDrawPromotion.Services
 
         public async Task<bool> Delete(Guid id)
         {
-            var awardIsExist = await _context.Awards.FindAsync(id);
+            var awardIsExist = await _context.Awards.FirstOrDefaultAsync(x => x.Id == id);
             if (awardIsExist == null)
                 return false;
             _context.Awards.Remove(awardIsExist);
@@ -26,37 +26,29 @@ namespace LuckyDrawPromotion.Services
 
         public async Task<IEnumerable<Award>?> Get()
         {
-            var listAward = _context.Awards.ToListAsync();
-            if (listAward == null)
-                return null;
-            return await listAward;
+            return await _context.Awards.ToListAsync();
         }
 
         public async Task<Award?> Get(Guid id)
         {
-            var find = _context.Awards.FirstOrDefaultAsync(x => x.Id == id);
-            if (find == null)
-                return null;
-            return await find;
+            return await _context.Awards.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> Post([FromBody] Award award)
         {
-            var userIsExist = await _context.Users.FindAsync(award.PhoneNumberUser);
-            var codeIsExist = await _context.Codes.FindAsync(award.IdCode);
-            if (userIsExist == null || codeIsExist == null)
+            var userIsExist = await _context.Users.FirstOrDefaultAsync(x => x .PhoneNumber == award.PhoneNumberUser);
+            //var codeIsExist = await _context.Codes.FirstOrDefaultAsync(x => x.Id == award.IdCode);
+            var awardIsExist = await _context.Awards.FirstOrDefaultAsync(x => x.Id == award.Id);
+            if (userIsExist == null || awardIsExist != null)
                 return false;
 
-            var awardIsExist = await _context.Awards.FindAsync(award.Id);
-            var checkIsExist = await _context.Awards.FirstOrDefaultAsync(x => x.IdCode == award.IdCode
-                                                                           && x.PhoneNumberUser == award.PhoneNumberUser
-                                                                           && x.UsedDate == award.UsedDate);
-            if (awardIsExist != null || checkIsExist != null)
-                return false;
-
-            if (award.UsedDate > DateTime.Now)
-                return false;
-            award.UsedDate = DateTime.UtcNow;
+            if (award.UsedDate != null)
+                if (award.UsedDate > DateTime.Now)
+                    return false;
+                else
+                {
+                    award.UsedDate = Convert.ToDateTime(award.UsedDate).ToUniversalTime();
+                }
 
             await _context.Awards.AddAsync(award);
             await _context.SaveChangesAsync();

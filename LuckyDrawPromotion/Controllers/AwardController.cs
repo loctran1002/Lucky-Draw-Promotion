@@ -1,4 +1,4 @@
-﻿using LuckyDrawPromotion.Models.Entity;
+﻿using LuckyDrawPromotion.Data.Entity;
 using LuckyDrawPromotion.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
