@@ -6,8 +6,7 @@ namespace LuckyDrawPromotion.Services.Interfaces
     {
         Task<IEnumerable<InsCode>?> Get();
         Task<InsCode?> Get(Guid id);
-        Task<bool> AddAsync(InsCode insCode);
-        Task<bool> Put(InsCode insCode);
+        Task<bool> CreateAsync(InsCode insCode);
         Task<bool> Delete(Guid id);
     }
 }

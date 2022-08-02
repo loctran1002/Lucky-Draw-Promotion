@@ -15,6 +15,7 @@ namespace LuckyDrawPromotion.Models.Configurations
             builder.Property(c => c.Description).IsRequired().IsUnicode();
             builder.Property(c => c.AutoUpdate).IsRequired().HasDefaultValue(false);
             builder.Property(c => c.UseOnlyOnce).IsRequired().HasDefaultValue(false);
+            builder.Property(c => c.CodeCount).IsRequired();
             builder.Property(c => c.IdSetting).IsRequired();
             builder.Property(c => c.EmailAdmin).IsRequired();
 

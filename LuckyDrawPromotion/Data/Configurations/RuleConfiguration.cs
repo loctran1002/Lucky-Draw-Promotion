@@ -11,8 +11,8 @@ namespace LuckyDrawPromotion.Models.Configurations
             builder.ToTable("Rule");
             builder.HasKey(r => r.Id);
             builder.Property(r => r.Schedule).IsRequired();
-            builder.Property(r => r.StartTime).IsRequired().HasColumnType("datetime");
-            builder.Property(r => r.EndTime).IsRequired().HasColumnType("datetime");
+            builder.Property(r => r.StartTime).IsRequired().HasColumnType("time");
+            builder.Property(r => r.EndTime).HasColumnType("time");
             builder.Property(r => r.Probability).IsRequired();
             builder.Property(r => r.QuantityGift).IsRequired().HasDefaultValue(0);
             builder.Property(r => r.Priority).IsRequired().HasDefaultValue(1);

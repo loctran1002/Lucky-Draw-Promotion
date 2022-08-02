@@ -8,8 +8,10 @@ namespace LuckyDrawPromotion.Data.Entity
     {
         public Guid Id { get; set; }
         public string Schedule { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        [NotMapped]
+        public TimeSpan StartTime { get; set; }
+        [NotMapped]
+        public TimeSpan? EndTime { get; set; }
         [Range(0, 100)]
         public int Probability { get; set; }
         [Range(0, int.MaxValue)]
@@ -20,8 +22,7 @@ namespace LuckyDrawPromotion.Data.Entity
         public string NameCampaign { get; set; }
         public Guid IdGift { get; set; }
 
-        public Campaign Campaign { get; set; }
-        public Gift Gift { get; set; }
-        public List<Code> Codes { get; set; }
+        public Campaign? Campaign { get; set; }
+        public Gift? Gift { get; set; }
     }
 }

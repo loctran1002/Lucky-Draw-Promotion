@@ -18,8 +18,8 @@ namespace LuckyDrawPromotion.Data.Entity
         public string NameCampaign { get; set; }
         public Guid IdGift { get; set; }
 
-        public Campaign Campaign { get; set; }
-        public Gift Gift { get; set; }
-        public List<Award> Awards { get; set; }
+        public Campaign? Campaign { get; set; }
+        public Gift? Gift { get; set; }
+        public List<Award>? Awards { get; set; }
     }
 }

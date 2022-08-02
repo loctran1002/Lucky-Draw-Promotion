@@ -14,7 +14,10 @@ builder.Services.AddTransient<IGiftService, GiftService>();
 builder.Services.AddTransient<ISettingService, SettingService>();
 builder.Services.AddTransient<IAdminService, AdminService>();
 builder.Services.AddTransient<ICampaignService, CampaignService>();
+builder.Services.AddTransient<ILogService, LogService>();
 builder.Services.AddTransient<IInsCodeService, InsCodeService>();
+builder.Services.AddTransient<IRuleService, RuleService>();
+builder.Services.AddTransient<ICodeService, CodeService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PromotionDbContext>(options =>

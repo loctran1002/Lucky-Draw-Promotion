@@ -120,6 +120,9 @@ namespace LuckyDrawPromotion.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<int>("CodeCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .IsUnicode(true)
@@ -179,9 +182,6 @@ namespace LuckyDrawPromotion.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("RuleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Target")
                         .IsRequired()
                         .HasMaxLength(5)
@@ -202,8 +202,6 @@ namespace LuckyDrawPromotion.Migrations
                     b.HasIndex("IdGift");
 
                     b.HasIndex("NameCampaign");
-
-                    b.HasIndex("RuleId");
 
                     b.ToTable("Code", (string)null);
                 });
@@ -267,10 +265,7 @@ namespace LuckyDrawPromotion.Migrations
             modelBuilder.Entity("LuckyDrawPromotion.Data.Entity.Log", b =>
                 {
                     b.Property<int>("Priority")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Priority"), 1L, 1);
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -299,8 +294,8 @@ namespace LuckyDrawPromotion.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime");
+                    b.Property<TimeSpan?>("EndTime")
+                        .HasColumnType("time");
 
                     b.Property<Guid>("IdGift")
                         .HasColumnType("uniqueidentifier");
@@ -326,8 +321,8 @@ namespace LuckyDrawPromotion.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime");
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -506,10 +501,6 @@ namespace LuckyDrawPromotion.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("LuckyDrawPromotion.Data.Entity.Rule", null)
-                        .WithMany("Codes")
-                        .HasForeignKey("RuleId");
-
                     b.Navigation("Campaign");
 
                     b.Navigation("Gift");
@@ -582,11 +573,6 @@ namespace LuckyDrawPromotion.Migrations
                     b.Navigation("Codes");
 
                     b.Navigation("Rules");
-                });
-
-            modelBuilder.Entity("LuckyDrawPromotion.Data.Entity.Rule", b =>
-                {
-                    b.Navigation("Codes");
                 });
 
             modelBuilder.Entity("LuckyDrawPromotion.Data.Entity.Setting", b =>

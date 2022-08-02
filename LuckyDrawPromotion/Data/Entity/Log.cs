@@ -9,6 +9,6 @@ namespace LuckyDrawPromotion.Data.Entity
         public string Content { get; set; }
         public string NameCampaign { get; set; }
 
-        public Campaign Campaign { get; set; }
+        public Campaign? Campaign { get; set; }
     }
 }

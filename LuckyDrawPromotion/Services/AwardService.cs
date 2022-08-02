@@ -37,9 +37,9 @@ namespace LuckyDrawPromotion.Services
         public async Task<bool> Post([FromBody] Award award)
         {
             var userIsExist = await _context.Users.FirstOrDefaultAsync(x => x .PhoneNumber == award.PhoneNumberUser);
-            //var codeIsExist = await _context.Codes.FirstOrDefaultAsync(x => x.Id == award.IdCode);
+            var codeIsExist = await _context.Codes.FirstOrDefaultAsync(x => x.Id == award.IdCode);
             var awardIsExist = await _context.Awards.FirstOrDefaultAsync(x => x.Id == award.Id);
-            if (userIsExist == null || awardIsExist != null)
+            if (userIsExist == null || codeIsExist == null || awardIsExist != null)
                 return false;
 
             if (award.UsedDate != null)

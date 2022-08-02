@@ -13,13 +13,13 @@ namespace LuckyDrawPromotion.Services
             _context = context;
         }
 
-        public async Task<bool> AddAsync(InsCode insCode)
+        public async Task<bool> CreateAsync(InsCode insCode)
         {
             var ins = await _context.InsCodes.FirstOrDefaultAsync(x => x.Id == insCode.Id);
             var campaign = await _context.Campaigns.FirstOrDefaultAsync(x => x.Name == insCode.NameCampaign);
             if (ins != null || campaign == null)
                 return false;
-            await _context.InsCodes.AddAsync(ins);
+            await _context.InsCodes.AddAsync(insCode);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -42,17 +42,6 @@ namespace LuckyDrawPromotion.Services
         public async Task<InsCode?> Get(Guid id)
         {
             return await _context.InsCodes.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<bool> Put(InsCode insCode)
-        {
-            var ins = await _context.InsCodes.FirstOrDefaultAsync(x => x.Id == insCode.Id);
-            var campaign = await _context.Campaigns.FirstOrDefaultAsync(x => x.Name == insCode.NameCampaign);
-            if (ins == null || campaign == null)
-                return false;
-            _context.InsCodes.Update(insCode);
-            await _context.SaveChangesAsync();
-            return true;
         }
     }
 }

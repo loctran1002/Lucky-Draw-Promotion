@@ -10,6 +10,7 @@ namespace LuckyDrawPromotion.Models.Configurations
         {
             builder.ToTable("Log");
             builder.HasKey(l => l.Priority);
+            builder.Property(l => l.Priority).ValueGeneratedNever();
             builder.Property(l => l.Content).IsRequired().IsUnicode();
             builder.Property(l => l.NameCampaign).IsRequired();
 

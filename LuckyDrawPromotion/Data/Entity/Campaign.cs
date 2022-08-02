@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LuckyDrawPromotion.Data.Entity
 {
@@ -11,6 +12,8 @@ namespace LuckyDrawPromotion.Data.Entity
         public string Description { get; set; }
         public bool AutoUpdate { get; set; }
         public bool UseOnlyOnce { get; set; }
+        [Range(0, int.MaxValue)]
+        public int CodeCount { get; set; }
         public string EmailAdmin { get; set; }
         public Guid IdSetting { get; set; }
 

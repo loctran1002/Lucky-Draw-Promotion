@@ -35,7 +35,7 @@ namespace LuckyDrawPromotion.Services
             {
                 listLog[i - 1].Content = listLog[i].Content;
             }
-            listLog[i].Content = log.Content;
+            listLog[i - 1].Content = log.Content;
             await _context.SaveChangesAsync();
             return true;
         }
