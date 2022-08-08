@@ -1,4 +1,5 @@
 ﻿using LuckyDrawPromotion.Data.Entity;
+using LuckyDrawPromotion.Models;
 using LuckyDrawPromotion.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +20,17 @@ namespace LuckyDrawPromotion.Controllers
         }
 
         // GET: api/<AwardController>
-        [HttpGet]
-        public async Task<IEnumerable<Award>?> Get()
+        [HttpGet("{nameCampaign}")]
+        public async Task<List<ListWinnerViewModel>> GetListAward(string nameCampaign)
         {
-            return await _awardService.Get();
+            return await _awardService.GetListAwardAsync(string.Empty, nameCampaign);
         }
 
         // GET api/<AwardController>/5
-        [HttpGet("{id}")]
-        public async Task<Award?> Get(Guid id)
+        [HttpGet]
+        public async Task<List<ListWinnerViewModel>> GetMyAward(string phoneNumber, string nameCampaign)
         {
-            return await _awardService.Get(id);
+            return await _awardService.GetListAwardAsync(phoneNumber, nameCampaign);
         }
 
         // POST api/<AwardController>
@@ -37,13 +38,6 @@ namespace LuckyDrawPromotion.Controllers
         public async Task<bool> Post([FromBody] Award award)
         {
             return await _awardService.Post(award);
-        }
-
-        // PUT api/<AwardController>/5
-        [HttpPut("{id}")]
-        public async Task<bool> Put(Guid id, [FromBody] Award award)
-        {
-            return await _awardService.Put(id, award);
         }
 
         // DELETE api/<AwardController>/5
