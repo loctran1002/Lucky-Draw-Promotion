@@ -7,10 +7,12 @@ namespace LuckyDrawPromotion.Services
     public class InsCodeService : IInsCodeService
     {
         private readonly PromotionDbContext _context;
+        public LogService _logService;
 
-        public InsCodeService(PromotionDbContext context)
+        public InsCodeService(PromotionDbContext context, LogService logService)
         {
             _context = context;
+            _logService = logService;
         }
 
         public async Task<bool> CreateAsync(InsCode insCode)
@@ -20,6 +22,14 @@ namespace LuckyDrawPromotion.Services
             if (ins != null || campaign == null)
                 return false;
             await _context.InsCodes.AddAsync(insCode);
+            await _context.SaveChangesAsync();
+
+            Log log = new Log()
+            {
+                Content = "Thêm cách tạo code",
+                NameCampaign = campaign.Name
+            };
+            await _logService.CreateAsync(log);
             await _context.SaveChangesAsync();
             return true;
         }

@@ -7,10 +7,12 @@ namespace LuckyDrawPromotion.Services
     public class SettingService : ISettingService
     {
         private readonly PromotionDbContext _context;
+        public LogService _logService;
 
-        public SettingService(PromotionDbContext context)
+        public SettingService(PromotionDbContext context, LogService logService)
         {
             _context = context;
+            _logService = logService;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -63,6 +65,18 @@ namespace LuckyDrawPromotion.Services
             setting.TimeSend = setting.TimeSend.ToUniversalTime();
             _context.Settings.Update(setting);
             await _context.SaveChangesAsync();
+
+            var campaign = await _context.Campaigns.FirstOrDefaultAsync(x => x.IdSetting == setting.Id);
+            if (campaign != null)
+            {
+                Log log = new Log()
+                {
+                    Content = "Chỉnh sửa cài đặt",
+                    NameCampaign = campaign.Name
+                };
+                await _logService.CreateAsync(log);
+                await _context.SaveChangesAsync();
+            }
             return true;
         }
     }
